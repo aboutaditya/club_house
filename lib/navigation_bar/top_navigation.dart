@@ -145,20 +145,20 @@ class MobileNavBar extends StatelessWidget {
             ),
           ),
         ),
-        // Padding(
-        //   padding: const EdgeInsets.only(
-        //     right: 8,
-        //   ),
-        //   child: IconButton(
-        //     icon: const Icon(
-        //       Icons.menu,
-        //       color: Colors.white,
-        //     ),
-        //     onPressed: (() async {
-        //       Scaffold.of(context).openEndDrawer();
-        //     }),
-        //   ),
-        // ),
+        Padding(
+          padding: const EdgeInsets.only(
+            right: 8,
+          ),
+          child: IconButton(
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: (() async {
+              Scaffold.of(context).openEndDrawer();
+            }),
+          ),
+        ),
       ]),
     );
   }

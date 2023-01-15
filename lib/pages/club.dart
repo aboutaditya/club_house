@@ -3,7 +3,9 @@ import 'package:club_house/navigation_bar/drawer.dart';
 import 'package:club_house/navigation_bar/top_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ClubEvent extends StatelessWidget {
   const ClubEvent({super.key});
@@ -19,7 +21,7 @@ class ClubEvent extends StatelessWidget {
     // );
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth > 900) {
+        if (constraints.maxWidth > 1300) {
           return Scaffold(
             body: Container(
               child: Column(
@@ -27,7 +29,23 @@ class ClubEvent extends StatelessWidget {
                   SizedBox(),
                   NavBar(),
                   ClubData(
-                    qty: 2,
+                    qty: 4,
+                    height: 1.25,
+                  )
+                ],
+              ),
+            ),
+          );
+        } else if (constraints.maxWidth <= 1300 && constraints.maxWidth > 900) {
+          return Scaffold(
+            body: Container(
+              child: Column(
+                children: [
+                  SizedBox(),
+                  NavBar(),
+                  ClubData(
+                    height: 1.16,
+                    qty: 3,
                   )
                 ],
               ),
@@ -41,7 +59,8 @@ class ClubEvent extends StatelessWidget {
                   SizedBox(),
                   NavBar(),
                   ClubData(
-                    qty: 1,
+                    qty: 2,
+                    height: 1.2,
                   )
                 ],
               ),
@@ -65,6 +84,7 @@ class ClubEvent extends StatelessWidget {
                   // NavBar(),
                   ClubData(
                     qty: 1,
+                    height: 1.07,
                   )
                 ],
               ),
@@ -79,152 +99,134 @@ class ClubEvent extends StatelessWidget {
 }
 
 class ClubData extends StatelessWidget {
-  ClubData({super.key, required this.qty});
+  ClubData({super.key, required this.qty, required this.height});
   Color bg = Colors.white;
   int qty;
+  double height;
+  launchURL(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // if(media)
     return Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/Clubbg.png"),
-                fit: BoxFit.fill)),
-        height: MediaQuery.of(context).size.height / 1.1,
-        // color: Color.fromARGB(255, 245, 247, 247),
+      // color: Colors.white24
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/Clubbg.png'), fit: BoxFit.fill)),
+      height: MediaQuery.of(context).size.height -
+            MediaQuery.of(context).size.height / 11.5,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: Padding(
-          padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height / 20,
-              left: MediaQuery.of(context).size.width / 17,
-              right: MediaQuery.of(context).size.width / 17),
+          padding: const EdgeInsets.all(8.0),
           child: GridView.count(
-            crossAxisCount: qty,
-            childAspectRatio: 2.1,
-            children: List.generate(6, (index) {
-              return Padding(
-                padding: const EdgeInsets.all(13),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(17),
-                      color: Colors.white),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(13),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                AutoSizeText(
-                                  "CodeJam",
-                                  style: TextStyle(
-                                      fontSize: 35,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 4),
-                                  child: Text(
-                                    "Google",
-                                    style: TextStyle(
-                                        fontSize: 23, color: Colors.grey),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(17),
-                            child: GestureDetector(
-                              child: CircleAvatar(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 245, 247, 247),
-                                  child: Icon(
-                                    Icons.link,
-                                    color: Colors.black,
-                                  )),
-                            ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Color.fromARGB(
-                                                255, 245, 247, 247),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "ONLINE",
-                                            style: TextStyle(
-                                                color: Colors.black87),
-                                          ),
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 245, 247, 247),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "STARTS 29/03/2023",
-                                          style:
-                                              TextStyle(color: Colors.black87),
-                                        ),
-                                      ),
+              // Desktop-1.25 max all
+              // Mobile-1.07-- max 430
+              childAspectRatio: height,
+              crossAxisCount: qty,
+              children: List.generate(6, (index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(13),
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [HexColor('FDFCFB'), HexColor('E2D1C3')])),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 13, left: 17, right: 17),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height / 5,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(17),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/Clubbg.png',
                                     ),
-                                  )
-                                ],
+                                    fit: BoxFit.fill)),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 22, top: 13),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Tech Naama",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w600),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.black12,
+                                      borderRadius: BorderRadius.circular(13)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                      'BIT BY BIT',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, top: 8, right: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.blue[400],
-                                    borderRadius: BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(12)),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8),
                                   child: Text(
-                                    'Know More',
-                                    style: TextStyle(
-                                        fontSize: 17, color: Colors.white),
+                                    "Saturday, 26 November, 2022",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                              GestureDetector(
+                                onTap: () {
+                                  launchURL(
+                                      'https://summerofcode.withgoogle.com/');
+                                },
+                                child: Icon(
+                                  Icons.link_outlined,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
-          ),
-        ));
+                );
+              })),
+        ),
+      ),
+    );
   }
 }
