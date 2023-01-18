@@ -76,6 +76,7 @@ class ClubEvent extends StatelessWidget {
                 style: GoogleFonts.poppins(color: Colors.white),
               ),
             ),
+            backgroundColor: Colors.black,
             body: Container(
               height: MediaQuery.of(context).size.height,
               child: Column(
@@ -98,11 +99,18 @@ class ClubEvent extends StatelessWidget {
   }
 }
 
-class ClubData extends StatelessWidget {
+class ClubData extends StatefulWidget {
   ClubData({super.key, required this.qty, required this.height});
-  Color bg = Colors.white;
   int qty;
   double height;
+
+  @override
+  State<ClubData> createState() => _ClubDataState();
+}
+
+class _ClubDataState extends State<ClubData> {
+  Color bg = Colors.white;
+
   launchURL(String url) async {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
@@ -114,13 +122,14 @@ class ClubData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // if(media)
+    bool ishover = false;
     return Container(
       // color: Colors.white24
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/Clubbg.png'), fit: BoxFit.fill)),
       height: MediaQuery.of(context).size.height -
-            MediaQuery.of(context).size.height / 11.5,
+          MediaQuery.of(context).size.height / 11.5,
       child: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20),
         child: Padding(
@@ -128,8 +137,8 @@ class ClubData extends StatelessWidget {
           child: GridView.count(
               // Desktop-1.25 max all
               // Mobile-1.07-- max 430
-              childAspectRatio: height,
-              crossAxisCount: qty,
+              childAspectRatio: widget.height,
+              crossAxisCount: widget.qty,
               children: List.generate(6, (index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -207,14 +216,28 @@ class ClubData extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  launchURL(
-                                      'https://summerofcode.withgoogle.com/');
-                                },
-                                child: Icon(
-                                  Icons.link_outlined,
-                                  color: Colors.black,
+                              Material(color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () {
+                                    launchURL(
+                                        'https://summerofcode.withgoogle.com/');
+                                  },
+                                  child: Icon(
+                                    Icons.link_outlined,
+                                    color:(ishover)? Colors.black :Colors.blue,
+                                  ),
+                                  onHover: (val) {
+                                    setState(() {
+                                      ishover = val;
+                                    });
+                                  },
+                                  // hoverColor: Colors.black,
+                                  // onHover: (value) {
+                                  //   setState(() {
+                                  //     ishover = value;
+                                  //   });
+                                  //   // });
+                                  // },
                                 ),
                               )
                             ],

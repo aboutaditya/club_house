@@ -117,7 +117,7 @@ class Hackathon extends StatelessWidget {
                 "Hackathons",
                 style: GoogleFonts.poppins(color: Colors.white),
               ),
-            ),
+            ),backgroundColor: Colors.black,
             body: Container(
               height: MediaQuery.of(context).size.height,
               child: Column(
