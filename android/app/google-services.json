@@ -29,6 +29,13 @@
             {
               "client_id": "787848155175-rvouh6j19d6732lf89osscdbdcusreoa.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "787848155175-j4dv7ur4eep9fpb1klkba0d2ngad4jgt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.clubHouse"
+              }
             }
           ]
         }

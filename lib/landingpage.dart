@@ -2,6 +2,8 @@ import 'package:club_house/desktoplanding.dart';
 import 'package:club_house/mobilelanding.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
 
@@ -17,7 +19,7 @@ class _LandingPageState extends State<LandingPage> {
         if (constraints.maxWidth > 800) {
           return DesktopPage();
         } else {
-          return MobilePage();
+          return Home();
         }
       },
     );

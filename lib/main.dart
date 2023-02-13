@@ -1,17 +1,19 @@
+import 'package:club_house/Signup.dart';
 import 'package:club_house/Signuplogin.dart';
-import 'package:club_house/desktoplanding.dart';
+import 'package:club_house/clubinfo.dart';
+import 'package:club_house/contactus.dart';
 import 'package:club_house/landingpage.dart';
-import 'package:club_house/navigation_bar/drawer.dart';
-import 'package:club_house/navigation_bar/top_navigation.dart';
+
+import 'package:club_house/pages/club.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main()  async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
@@ -32,6 +34,7 @@ class _MyAppState extends State<MyApp> {
       textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
     );
   }
+
   bool login = false;
   checkLogin() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
@@ -50,6 +53,7 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+
   @override
   void initState() {
     super.initState();
@@ -59,9 +63,40 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: _buildTheme(Brightness.dark),
-      debugShowCheckedModeBanner: false,
-      home:login? LandingPage() : LoginPage()
-    );
+        theme: _buildTheme(Brightness.dark),
+        debugShowCheckedModeBanner: false,
+        home: login ? LandingPage() : SignupPage()
+        // home:ClubAdd()
+        );
   }
 }
+// List<BottomNavigationBarItem> buildBottomNavBarItems() {
+//     return [
+//       BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+//       BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+//       //BottomNavigationBarItem(icon: Image.asset("assets/images/add.png", height: 35,), label: "Add"),
+//       BottomNavigationBarItem(
+//           icon: Icon(Icons.notifications_none), label: "Listings"),
+//       BottomNavigationBarItem(icon: Icon(Icons.email_outlined), label: "Chat"),
+//     ];
+//   }
+//   List<IconData> iconList = [
+//     Icons.home,
+//     Icons.search,
+//     Icons.notifications_none,
+//     Icons.email_outlined
+//   ];
+//   bottomNavigationBar: AnimatedBottomNavigationBar(
+//         activeIndex: bottomSelectedIndex,
+//         onTap: (index) {
+//           bottomTapped(index);
+//         },
+//         splashRadius: 0,
+//         inactiveColor: Colors.black,
+//         activeColor: Color(0xFFEE9B1F),
+//         backgroundColor: Colors.white,
+//         icons: iconList,
+//         gapLocation: GapLocation.center,
+//         notchSmoothness: NotchSmoothness.verySmoothEdge,
+//         splashSpeedInMilliseconds: 0,
+//       ),

@@ -1,35 +1,41 @@
-import 'package:club_house/Signup.dart';
-import 'package:club_house/home.dart';
+import 'package:club_house/Signuplogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'landingpage.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatelessWidget {
+  const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 1100) {
-          return const DesktopSignin();
+          return const DesktopSignup();
         } else {
-          return const MobileSingin();
+          return const MobileSignup();
         }
       },
     );
   }
 }
 
-class DesktopSignin extends StatelessWidget {
-  const DesktopSignin({super.key});
+class DesktopSignup extends StatefulWidget {
+  const DesktopSignup({super.key});
+
+  @override
+  State<DesktopSignup> createState() => _DesktopSignupState();
+}
+
+class _DesktopSignupState extends State<DesktopSignup> {
+  TextEditingController email = TextEditingController();
+
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -60,7 +66,7 @@ class DesktopSignin extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                "Welcome back",
+                                "Sign up",
                                 style: GoogleFonts.poppins(
                                     color: Colors.black,
                                     fontSize: 27,
@@ -125,7 +131,7 @@ class DesktopSignin extends StatelessWidget {
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
                             onTap: () {
-                              _signInWithEmailAndPassword(
+                              _createUserWithEmailAndPassword(
                                   email.text, password.text, context);
                             },
                             child: Container(
@@ -138,7 +144,7 @@ class DesktopSignin extends StatelessWidget {
                                       color: Colors.black, width: 1.4)),
                               child: Center(
                                   child: Text(
-                                "Sign In",
+                                "Sign up",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 17),
                               )),
@@ -172,7 +178,7 @@ class DesktopSignin extends StatelessWidget {
                         //             width: 10,
                         //           ),
                         //           Text(
-                        //             "Sign In with Google",
+                        //             "Sign Up with Google",
                         //             style: TextStyle(
                         //                 color: Colors.black,
                         //                 fontSize: 17,
@@ -195,7 +201,7 @@ class DesktopSignin extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Dont have an account?',
+                                Text('Already have a account?',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 14,
@@ -203,7 +209,7 @@ class DesktopSignin extends StatelessWidget {
                                 SizedBox(
                                   width: 4,
                                 ),
-                                Text("Sign Up",
+                                Text("Sign In",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
@@ -220,7 +226,7 @@ class DesktopSignin extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.61,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/images/code.webp'),
+                          image: AssetImage('assets/images/signup.webp'),
                           fit: BoxFit.fill),
                     ),
                   )
@@ -232,14 +238,14 @@ class DesktopSignin extends StatelessWidget {
   }
 }
 
-class MobileSingin extends StatefulWidget {
-  const MobileSingin({super.key});
+class MobileSignup extends StatefulWidget {
+  const MobileSignup({super.key});
 
   @override
-  State<MobileSingin> createState() => _MobileSinginState();
+  State<MobileSignup> createState() => _MobileSignupState();
 }
 
-class _MobileSinginState extends State<MobileSingin> {
+class _MobileSignupState extends State<MobileSignup> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   @override
@@ -267,7 +273,7 @@ class _MobileSinginState extends State<MobileSingin> {
                   child: Row(
                     children: [
                       Text(
-                        "Welcome back",
+                        "Sign Up",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontSize: 27,
@@ -330,7 +336,7 @@ class _MobileSinginState extends State<MobileSingin> {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () {
-                      _signInWithEmailAndPasswordMobile(
+                      _createUserWithEmailAndPassword(
                           email.text, password.text, context);
                     },
                     child: Container(
@@ -342,7 +348,7 @@ class _MobileSinginState extends State<MobileSingin> {
                           border: Border.all(color: Colors.black, width: 1.4)),
                       child: Center(
                           child: Text(
-                        "Sign In",
+                        "Sign Up",
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       )),
                     ),
@@ -374,7 +380,7 @@ class _MobileSinginState extends State<MobileSingin> {
                 //             width: 10,
                 //           ),
                 //           Text(
-                //             "Sign In with Google",
+                //             "Sign Up with Google",
                 //             style: TextStyle(
                 //                 color: Colors.black,
                 //                 fontSize: 17,
@@ -397,7 +403,7 @@ class _MobileSinginState extends State<MobileSingin> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Dont have an account?',
+                        Text('Already have a account?',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -405,7 +411,7 @@ class _MobileSinginState extends State<MobileSingin> {
                         SizedBox(
                           width: 4,
                         ),
-                        Text("Sign Up",
+                        Text("Sign In",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -425,7 +431,7 @@ class _MobileSinginState extends State<MobileSingin> {
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => SignupPage(),
+    pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;
@@ -441,114 +447,29 @@ Route _createRoute() {
   );
 }
 
-void _signInWithEmailAndPassword(
+void _createUserWithEmailAndPassword(
     String emailu, String passwordu, context) async {
   try {
     UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: emailu, password: passwordu);
+        .createUserWithEmailAndPassword(email: emailu, password: passwordu);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LandingPage()));
   } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Color.fromARGB(0, 255, 255, 255),
-        content: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/signin.png'),
-                    fit: BoxFit.fill),
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(12)),
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Center(
-                child: Text(
-              'No user found for that email.',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold),
-            ))),
-      ));
-      print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Color.fromARGB(0, 255, 255, 255),
-        content: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/signin.png'),
-                    fit: BoxFit.fill),
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(12)),
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Center(
-                child: Text(
-              'Incorrect password provided for that user.',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold),
-            ))),
-      ));
-      print('Wrong password provided for that user.');
+    if (e.code == 'weak-password') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('The password provided is too weak.'),
+        ),
+      );
+    } else if (e.code == 'email-already-in-use') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('The account already exists for that email.'),
+        ),
+      );
+      print('The account already exists for that email.');
     }
-  }
-}
-
-void _signInWithEmailAndPasswordMobile(
-    String emailu, String passwordu, context) async {
-  try {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: emailu, password: passwordu);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Home()));
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Color.fromARGB(0, 255, 255, 255),
-        content: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/signin.png'),
-                    fit: BoxFit.fill),
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(12)),
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Center(
-                child: Text(
-              'No user found for that email.',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold),
-            ))),
-      ));
-      print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Color.fromARGB(0, 255, 255, 255),
-        content: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/signin.png'),
-                    fit: BoxFit.fill),
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(12)),
-            height: MediaQuery.of(context).size.height * 0.1,
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Center(
-                child: Text(
-              'Incorrect password provided for that user.',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold),
-            ))),
-      ));
-      print('Wrong password provided for that user.');
-    }
+  } catch (e) {
+    print(e);
   }
 }
