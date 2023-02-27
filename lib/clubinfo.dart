@@ -166,16 +166,8 @@ class _ClubAddState extends State<ClubAdd> {
                             AddClub(ename.text, cname.text, date.text,
                                 link.text, banner.text);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                duration: Duration(seconds: 10),
-                                content: Padding(
-                                  padding: const EdgeInsets.only(bottom: 50),
-                                  child: Container(
-                                      height: 500,
-                                      color: Colors.amberAccent,
-                                      child: Text(
-                                          'Congrats your event is added.')),
-                                ),
+                              const SnackBar(
+                                content: Text('Congrats your event is added'),
                               ),
                             );
                             Navigator.push(

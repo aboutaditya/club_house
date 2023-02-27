@@ -4,6 +4,7 @@ import 'package:club_house/Signup.dart';
 import 'package:club_house/clubinfo.dart';
 import 'package:club_house/contactus.dart';
 import 'package:club_house/landingpage.dart';
+import 'package:club_house/main.dart';
 import 'package:club_house/pages/club.dart';
 import 'package:club_house/pages/hackathon.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -849,16 +850,23 @@ class _DesktopPageState extends State<DesktopPage> {
                               SizedBox(
                                 width: 40,
                               ),
-                              // MouseRegion(
-                              //   cursor: SystemMouseCursors.click,
-                              //   child: GestureDetector(
-                              //     child: Text('ABOUT',
-                              //         style: GoogleFonts.poppins(
-                              //             fontSize: 17,
-                              //             color: Colors.white,
-                              //             fontWeight: FontWeight.w900)),
-                              //   ),
-                              // ),
+                              MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await FirebaseAuth.instance.signOut();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MyApp()));
+                                  },
+                                  child: Text('Log Out',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w900)),
+                                ),
+                              ),
                             ],
                           )
                         ],
@@ -1087,12 +1095,12 @@ class _ClubContainerState extends State<ClubContainer> {
               //     colors: [HexColor('FDFCFB'), HexColor('E2D1C3')])
               ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 13, left: 17, right: 17),
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 5,
+                  height: 150,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(17),
                       image: DecorationImage(

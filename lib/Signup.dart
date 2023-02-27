@@ -61,8 +61,9 @@ class _DesktopSignupState extends State<DesktopSignup> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 71),
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                            width: MediaQuery.of(context).size.width * 0.22,
                           child: Row(
                             children: [
                               Text(
